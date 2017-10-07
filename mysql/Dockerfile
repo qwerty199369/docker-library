@@ -154,4 +154,4 @@ liblz4-dev                      \
 
 EXPOSE 3306
 
-CMD ["/usr/local/mysql/support-files/mysql.server start && chmod 777 /tmp/mysql.sock"]
+CMD ["chown -R mysql:appserver /usr/local/mysql && /usr/local/mysql/support-files/mysql.server start && chmod 777 /tmp/mysql.sock"]

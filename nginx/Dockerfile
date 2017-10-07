@@ -150,4 +150,4 @@ liblz4-dev                      \
 
 EXPOSE 80 443
 
-CMD ["/usr/local/nginx/sbin/nginx"]
+CMD ["chown -R nginx:appserver /usr/local/nginx && /usr/local/nginx/sbin/nginx"]

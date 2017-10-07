@@ -164,4 +164,4 @@ liblz4-dev                      \
 
 EXPOSE 9000
 
-CMD ["/usr/local/php/sbin/php-fpm"]
+CMD ["chown -R php:appserver /usr/local/php && /usr/local/php/sbin/php-fpm"]

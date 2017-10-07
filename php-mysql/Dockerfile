@@ -211,18 +211,24 @@ liblz4-dev                      \
 --with-xsl                                                          \
 --enable-opcache                                                    \
 --with-pear                                                         \
+
 && make -j${CPU_NUM} && make install                                \
+
 && cd /usr/local/src                                                \
-&& rm -rf /usr/local/src/*
+&& wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf/php-fpm.conf \
+&& yes | cp ./php-fpm.conf      /usr/local/php/etc/                 \
+&& wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf/www.conf \
+&& yes | cp ./www.conf          /usr/local/php/etc/php-fpm.d/       \
+&& wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf/php.ini \
+&& yes | cp ./php.ini           /usr/local/php/lib/                 \
 
-COPY ./conf/php-fpm.conf          /usr/local/php/etc/php-fpm.conf
-COPY ./conf/www.conf              /usr/local/php/etc/php-fpm.d/www.conf
-COPY ./conf/php.ini               /usr/local/php/lib/php.ini
+&& cd /usr/local/src                                                \
+&& rm -rf /usr/local/src/*                                          \
 
-RUN chown -R mysql:appserver    /usr/local/mysql                    \
+&& chown -R mysql:appserver    /usr/local/mysql                     \
 && /usr/local/mysql/support-files/mysql.server start                \
 
-&& chmod 777 /tmp/mysql.sock                                      \
+&& chmod 777 /tmp/mysql.sock                                        \
 && /usr/local/mysql/bin/mysqladmin -uroot password ${MYSQL_PASS}    \
 && /usr/local/mysql/bin/mysql -uroot -p${MYSQL_PASS} -e "CREATE DATABASE test_db1 DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci"                        \
 && /usr/local/mysql/bin/mysql -uroot -p${MYSQL_PASS} -e "CREATE DATABASE test_db2 DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci"                        \
@@ -237,4 +243,4 @@ RUN chown -R mysql:appserver    /usr/local/mysql                    \
 
 EXPOSE 3306 9000
 
-CMD ["/usr/local/php/sbin/php-fpm && /usr/local/mysql/support-files/mysql.server start && chmod 777 /tmp/mysql.sock"]
+CMD ["chown -R mysql:appserver /usr/local/mysql && /usr/local/mysql/support-files/mysql.server start && chmod 777 /tmp/mysql.sock && chown -R php:appserver /usr/local/php && /usr/local/php/sbin/php-fpm"]
