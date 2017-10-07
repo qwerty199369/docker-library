@@ -133,6 +133,8 @@ liblz4-dev                      \
 
 && make -j${CPU_NUM} && make install                                \
 
+&& mkdir /usr/local/nginx/vhosts_dir                                \
+
 && cd /usr/local/src                                                \
 && wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx/conf/nginx.conf \
 && yes | cp ./nginx.conf  /usr/local/nginx/conf/nginx.conf          \
