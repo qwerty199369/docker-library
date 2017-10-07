@@ -151,15 +151,12 @@ liblz4-dev                      \
 && wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf/php.ini \
 && yes | cp ./php.ini           /usr/local/php/lib/                 \
 
-&& ls /usr/local/php/etc/                                           \
-&& ls /usr/local/php/etc/php-fpm.d/                                 \
-&& ls /usr/local/php/lib/                                           \
-
 && rm -rf /usr/local/src/*                                          \
 
 && chown -R php:appserver        /usr/local/php                     \
 && /usr/local/php/sbin/php-fpm                                      \
 && chown -R php:appserver         /usr/local/php                    \
+&& /usr/local/php/bin/php -r "phpinfo();"                           \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid`
 
 EXPOSE 9000

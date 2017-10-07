@@ -94,10 +94,10 @@ liblz4-dev                      \
 && ./configure --prefix=/usr/local/nginx                            \
 --user=nginx                                                        \
 --group=appserver                                                   \
---with-zlib=/usr/local/src/fast-server/zlib-${ZLIB_VERSION}         \
---with-pcre=/usr/local/src/fast-server/pcre-${PCRE_VERSION}         \
+--with-zlib=/usr/local/src/zlib-${ZLIB_VERSION}                     \
+--with-pcre=/usr/local/src/pcre-${PCRE_VERSION}                     \
 --with-pcre-jit                                                     \
---with-openssl=/usr/local/src/fast-server/openssl-${OPENSSL_VERSION} \
+--with-openssl=/usr/local/src/openssl-${OPENSSL_VERSION}            \
 --with-threads                                                      \
 --with-file-aio                                                     \
 --with-http_ssl_module                                              \

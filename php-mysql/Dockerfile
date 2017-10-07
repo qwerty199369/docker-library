@@ -237,6 +237,7 @@ liblz4-dev                      \
 && chown -R php:appserver       /usr/local/php                      \
 && /usr/local/php/sbin/php-fpm                                      \
 && chown -R php:appserver       /usr/local/php                      \
+&& /usr/local/php/bin/php -r "phpinfo();"                           \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid`
 
 EXPOSE 3306 9000
