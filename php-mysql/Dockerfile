@@ -8,7 +8,7 @@ ENV BOOST_VERSION          1_59_0
 ENV BOOST_NORMAL_VERSION   1.59.0
 ENV MYSQL_PASS             btqwehjqhe8921eknjs
 
-COPY ./conf/generated.my.cnf      /etc/my.cnf
+COPY ../mysql/conf/generated.my.cnf      /etc/my.cnf
 
 RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                                \
 
