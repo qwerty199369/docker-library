@@ -17,9 +17,7 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                        
 && apt-get -y update            \
 && apt-get -y upgrade           \
 
-&& apt-get -y install git       \
-vim                             \
-wget                            \
+&& apt-get -y install wget      \
 gcc                             \
 g++                             \
 automake                        \
