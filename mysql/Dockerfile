@@ -4,7 +4,7 @@ ENV MYSQL_VERSION          5.7.19
 ENV PERCONA_VERSION        5.7.19-17
 ENV BOOST_VERSION          1_59_0
 ENV BOOST_NORMAL_VERSION   1.59.0
-ENV MYSQL_PASS             btqwehjqhe8921eknjs
+ENV MYSQL_PASS             ahgui6348u29q3eikwjedksw
 
 COPY ./conf/generated.my.cnf      /etc/my.cnf
 
@@ -67,12 +67,10 @@ libkrb5-dev                     \
 libldap2-dev                    \
 libaspell-dev                   \
 libpspell-dev                   \
-snmp                            \
 libsnmp-dev                     \
 libtidy-dev                     \
 libpq-dev                       \
 p7zip                           \
-p7zip-full                      \
 liblz4-dev                      \
 
 && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h             \
@@ -133,25 +131,24 @@ liblz4-dev                      \
 --basedir=/usr/local/mysql                                          \
 --datadir=/usr/local/mysql/datadir                                  \
 
-# add mysqld service
-# cp /usr/local/mysql-${MYSQL_VERSION}/support-files/mysql.server /etc/init.d/mysqld
-# chmod +x /etc/init.d/mysqld
+&& yes | cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld \
+&& chmod +x /etc/init.d/mysqld                                      \
 
 && cd /usr/local/src                                                \
 && rm -rf                       /usr/local/src/*                    \
 && rm -rf                       /usr/local/mysql/mysql-test         \
 
 && chown -R mysql:appserver     /usr/local/mysql                    \
-&& /usr/local/mysql/support-files/mysql.server start                \
+&& service mysqld start                                             \
 
 && chmod 777 /tmp/mysql.sock                                        \
 && /usr/local/mysql/bin/mysqladmin -uroot password ${MYSQL_PASS}    \
 && /usr/local/mysql/bin/mysql -uroot -p${MYSQL_PASS} -e "CREATE DATABASE test_db1 DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci"                        \
 && /usr/local/mysql/bin/mysql -uroot -p${MYSQL_PASS} -e "CREATE DATABASE test_db2 DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci"                        \
 
-&& /usr/local/mysql/support-files/mysql.server stop                 \
+&& service mysqld stop                                              \
 && chown -R mysql:appserver    /usr/local/mysql
 
 EXPOSE 3306
 
-CMD ["chown -R mysql:appserver /usr/local/mysql && /usr/local/mysql/support-files/mysql.server start && chmod 777 /tmp/mysql.sock"]
+CMD ["mysqld"]
