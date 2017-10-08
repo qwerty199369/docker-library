@@ -82,7 +82,7 @@ liblz4-dev                      \
 
 && cd /usr/local/src                                                        \
 && wget http://ideas-cdn-src.oss-cn-beijing.aliyuncs.com/assets/softs/percona-server-${PERCONA_VERSION}.tar.gz \
-&& wget https://jaist.dl.sourceforge.net/project/boost/boost/${BOOST_NORMAL_VERSION}/boost_${BOOST_VERSION}.tar.gz \
+&& wget http://ideas-cdn-src.oss-cn-beijing.aliyuncs.com/assets/softs/boost_${BOOST_VERSION}.tar.gz \
 && tar -zxvf percona-server-${PERCONA_VERSION}.tar.gz               \
 && tar -zxvf boost_${BOOST_VERSION}.tar.gz                          \
 
