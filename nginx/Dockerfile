@@ -136,6 +136,8 @@ liblz4-dev                      \
 
 && rm -rf /usr/local/src/*                                          \
 
+&& chmod 777 /docker_run.sh                                         \
+
 && chown -R nginx:appserver        /usr/local/nginx                 \
 && /usr/local/nginx/sbin/nginx -t                                   \
 && /usr/local/nginx/sbin/nginx                                      \
