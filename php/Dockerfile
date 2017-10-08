@@ -2,6 +2,8 @@ FROM ubuntu:16.04
 
 ENV PHP_VERSION  7.1.10
 
+ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/docker_run.sh  /docker_run.sh
+
 RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                                \
 
 && sed -r -i -e "s/archive.ubuntu.com/mirrors.sohu.com/g" /etc/apt/sources.list         \
@@ -61,12 +63,9 @@ libkrb5-dev                     \
 libldap2-dev                    \
 libaspell-dev                   \
 libpspell-dev                   \
-snmp                            \
 libsnmp-dev                     \
 libtidy-dev                     \
 libpq-dev                       \
-p7zip                           \
-p7zip-full                      \
 liblz4-dev                      \
 
 && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h             \
@@ -153,12 +152,11 @@ liblz4-dev                      \
 
 && rm -rf /usr/local/src/*                                          \
 
+&& chmod 777 /docker_run.sh                                         \
+
 && chown -R php:appserver        /usr/local/php                     \
-&& /usr/local/php/sbin/php-fpm                                      \
-&& chown -R php:appserver         /usr/local/php                    \
-&& /usr/local/php/bin/php -r "phpinfo();"                           \
-&& kill -INT `cat /usr/local/php/var/run/php-fpm.pid`
+&& /usr/local/php/bin/php -r "phpinfo();"
 
 EXPOSE 9000
 
-CMD ["chown -R php:appserver /usr/local/php && /usr/local/php/sbin/php-fpm"]
+CMD ["/docker_run.sh"]
