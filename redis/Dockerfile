@@ -94,7 +94,7 @@ liblz4-dev                      \
 
 && rm -rf /usr/local/src/*                                                  \
 
-&& chown -R redis:appserver        /usr/local/redis                         \
+&& chown -R redis:appserver        /usr/local/redis
 
 EXPOSE 6379
 
