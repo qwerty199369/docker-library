@@ -63,12 +63,9 @@ libkrb5-dev                     \
 libldap2-dev                    \
 libaspell-dev                   \
 libpspell-dev                   \
-snmp                            \
 libsnmp-dev                     \
 libtidy-dev                     \
 libpq-dev                       \
-p7zip                           \
-p7zip-full                      \
 liblz4-dev                      \
 
 && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h             \
