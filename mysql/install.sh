@@ -129,17 +129,14 @@ liblz4-dev                      \
 --basedir=/usr/local/mysql                                          \
 --datadir=/usr/local/mysql/datadir                                  \
 \
-&& yes | cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld \
-&& chmod +x /etc/init.d/mysqld                                      \
-\
 && cd /usr/local/src                                                \
 && rm -rf                       /usr/local/src/*                    \
 && rm -rf                       /usr/local/mysql/mysql-test         \
 \
 && chown -R mysql:appserver     /usr/local/mysql                    \
-&& service mysqld start                                             \
+&& /usr/local/mysql/support-files/mysql.server start                \
 \
 && chmod 777 /tmp/mysql.sock                                        \
 \
-&& service mysqld stop                                              \
+&& /usr/local/mysql/support-files/mysql.server stop                 \
 && chown -R mysql:appserver    /usr/local/mysql
