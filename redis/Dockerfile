@@ -83,15 +83,19 @@ liblz4-dev                      \
 && cd /usr/local/src/redis-${REDIS_VERSION}                                 \
 && make -j${CPU_NUM} && make PREFIX=/usr/local/redis install                \
 
+&& mkdir /usr/local/redis/working_dir                                       \
+
 && cd /usr/local/src                                                        \
 && wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/redis/conf/redis.conf \
-&& yes | cp ./redis.conf      /usr/local/redis/redis_conf_file.conf         \
-&& /usr/local/redis/bin/redis-server /usr/local/redis/redis_conf_file.conf  \
+&& yes | cp ./redis.conf                /usr/local/redis/conf_file.conf     \
+
+&& /usr/local/redis/bin/redis-server    /usr/local/redis/conf_file.conf     \
 && /usr/local/redis/bin/redis-cli shutdown                                  \
+
 && rm -rf /usr/local/src/*                                                  \
 
 && chown -R redis:appserver        /usr/local/redis                         \
 
 EXPOSE 6379
 
-CMD ["chown -R redis:appserver /usr/local/redis && /usr/local/redis/bin/redis-server /usr/local/redis/redis_conf_file.conf"]
+CMD ["chown -R redis:appserver /usr/local/redis && /usr/local/redis/bin/redis-server /usr/local/redis/conf_file.conf"]
