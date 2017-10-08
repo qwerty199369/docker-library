@@ -5,6 +5,8 @@ ENV OPENSSL_VERSION     1.0.2l
 ENV PCRE_VERSION        8.41
 ENV ZLIB_VERSION        1.2.11
 
+ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx/docker_run.sh  /docker_run.sh
+
 RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                                \
 
 && sed -r -i -e "s/archive.ubuntu.com/mirrors.sohu.com/g" /etc/apt/sources.list         \
@@ -20,61 +22,6 @@ autoconf                        \
 libtool                         \
 make                            \
 cmake                           \
-libedit-dev                     \
-libeditline-dev                 \
-libldb-dev                      \
-libldap2-dev                    \
-libsasl2-dev                    \
-zlib1g-dev                      \
-libpcre3-dev                    \
-libfreetype6-dev                \
-libpng12-dev                    \
-libevent-dev                    \
-libmcrypt-dev                   \
-libjpeg-dev                     \
-libjemalloc-dev                 \
-libxml2-dev                     \
-libbz2-dev                      \
-libcurl3-dev                    \
-libc6-dev                       \
-libc-client2007e-dev            \
-libglib2.0-dev                  \
-openssl                         \
-libssl-dev                      \
-libbison-dev                    \
-libncurses5-dev                 \
-libgd-dev                       \
-libfl-dev                       \
-libwebp-dev                     \
-libasprintf-dev                 \
-libgmp-dev                      \
-libaio-dev                      \
-libreadline-dev                 \
-librecode-dev                   \
-libxslt1-dev                    \
-libicu-dev                      \
-zip                             \
-libzip-dev                      \
-libgeoip-dev                    \
-libatomic-ops-dev               \
-libacl1-dev                     \
-libenchant-dev                  \
-libkrad-dev                     \
-libkrb5-dev                     \
-libldap2-dev                    \
-libaspell-dev                   \
-libpspell-dev                   \
-snmp                            \
-libsnmp-dev                     \
-libtidy-dev                     \
-libpq-dev                       \
-p7zip                           \
-p7zip-full                      \
-liblz4-dev                      \
-
-&& ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h             \
-&& ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so           \
-&& ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so           \
 
 && groupadd appserver                                                       \
 && useradd -g appserver -M -d /usr/local/nginx nginx -s /sbin/nologin       \
@@ -138,7 +85,6 @@ liblz4-dev                      \
 && cd /usr/local/src                                                \
 && wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx/conf/nginx.conf \
 && yes | cp ./nginx.conf  /usr/local/nginx/conf/nginx.conf          \
-&& cat                    /usr/local/nginx/conf/nginx.conf          \
 
 && rm -rf /usr/local/src/*                                          \
 
@@ -150,4 +96,4 @@ liblz4-dev                      \
 
 EXPOSE 80 443
 
-CMD ["chown -R nginx:appserver /usr/local/nginx && /usr/local/nginx/sbin/nginx"]
+CMD ["/docker_run.sh"]
