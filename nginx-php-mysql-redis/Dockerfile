@@ -329,7 +329,7 @@ liblz4-dev                      \
 && rm -rf   ./redis.conf                                                    \
 
 && chown -R redis:appserver             /usr/local/redis                    \
-&& /usr/local/redis/bin/redis-server    /usr/local/redis/conf/redis.conf    \
+&& /usr/local/redis/bin/redis-server    /usr/local/redis/conf_file.conf     \
 && /usr/local/redis/bin/redis-cli       shutdown                            \
 
 
