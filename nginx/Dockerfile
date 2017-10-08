@@ -23,6 +23,8 @@ libtool                         \
 make                            \
 cmake                           \
 libjemalloc-dev                 \
+libxml2-dev                     \
+libxslt1-dev                    \
 
 && groupadd appserver                                                       \
 && useradd -g appserver -M -d /usr/local/nginx nginx -s /sbin/nologin       \
