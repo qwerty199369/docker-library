@@ -2,6 +2,8 @@ FROM ubuntu:16.04
 
 ENV REDIS_VERSION  3.2.11
 
+ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/redis/docker_run.sh  /docker_run.sh
+
 RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                                \
 
 && sed -r -i -e "s/archive.ubuntu.com/mirrors.sohu.com/g" /etc/apt/sources.list         \
@@ -89,13 +91,12 @@ liblz4-dev                      \
 && wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/redis/conf/redis.conf \
 && yes | cp ./redis.conf                /usr/local/redis/conf_file.conf     \
 
-&& /usr/local/redis/bin/redis-server    /usr/local/redis/conf_file.conf     \
-&& /usr/local/redis/bin/redis-cli shutdown                                  \
-
 && rm -rf /usr/local/src/*                                                  \
+
+&& chmod 777 /docker_run.sh                                                 \
 
 && chown -R redis:appserver        /usr/local/redis
 
 EXPOSE 6379
 
-CMD ["chown -R redis:appserver /usr/local/redis && /usr/local/redis/bin/redis-server /usr/local/redis/conf_file.conf"]
+CMD ["/docker_run.sh"]
