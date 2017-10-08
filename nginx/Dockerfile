@@ -22,6 +22,7 @@ autoconf                        \
 libtool                         \
 make                            \
 cmake                           \
+libjemalloc-dev                 \
 
 && groupadd appserver                                                       \
 && useradd -g appserver -M -d /usr/local/nginx nginx -s /sbin/nologin       \
