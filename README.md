@@ -3,6 +3,12 @@
 docker run \
  -v /appserver/nginx:/appserver:rw \
  -p 80:80 \
+ -p 443:443 \
+ -d qwerty199369/nginx-php-mysql-redis:1.0.0
+
+docker run \
+ -v /appserver/nginx:/appserver:rw \
+ -p 80:80 \
  -d qwerty199369/fast-server-nginx:1.13.5.2 \
 && docker run \
  -v /appserver/php:/appserver:rw \
