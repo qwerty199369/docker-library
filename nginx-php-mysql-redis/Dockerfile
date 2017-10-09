@@ -1,5 +1,7 @@
 FROM qwerty199369/image-base-ubuntu:16.04.0
 
+MAINTAINER qwerty199369 <qwerty199369@outlook.com>
+
 ENV NGINX_VERSION           1.13.5
 ENV OPENSSL_VERSION         1.0.2l
 ENV PCRE_VERSION            8.41
