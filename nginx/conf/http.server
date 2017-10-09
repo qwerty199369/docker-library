@@ -1,0 +1,38 @@
+
+server {
+    listen                       80;
+    server_name                  www.example.com;
+
+    root                         /usr/local/nginx/vhosts_dir/index_dir;
+
+    location / {
+        if ($http_user_agent ~* (wget|crawler|FeedDemon|ApacheBench|UniversalFeedParser|CrawlDaddy|WinHttp|urllib|phpmyadmin|spiderman|python)) {
+            return 403;
+        }
+
+        #if ($http_user_agent ~* (Baiduspider|Googlebot|Bingbot|spider)) {
+        #    return 403;
+        #}
+
+        limit_except GET HEAD POST DELETE PUT PATCH OPTIONS {
+            allow  all;
+        }
+
+        limit_req                zone=one burst=50 nodelay;
+
+        try_files                $uri $uri/ /index.php?$args;
+    }
+
+    location ~* \.(js|css|map|gif|jpg|png|ico|ttf|woff|html|woff2)$ {
+        try_files  $uri =404;
+    }
+
+    location ~ \.php$ {
+        try_files                $uri =404;
+        fastcgi_pass             127.0.0.1:9000;
+        fastcgi_index            index.php;
+        fastcgi_param            HTTP_PROXY  "";
+        fastcgi_param            SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include                  fastcgi_params;
+    }
+}
