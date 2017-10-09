@@ -17,11 +17,22 @@ ENV BOOST_NORMAL_VERSION    1.59.0
 ENV REDIS_VERSION           3.2.11
 
 
-ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/mysql/conf/generated.my.cnf  /etc/my.cnf
-
-ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx-php-mysql-redis/docker_run.sh  /docker_run.sh
-
+ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/mysql/conf/generated.my.cnf \
+/etc/my.cnf
+ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx-php-mysql-redis/docker_run.sh \
+/docker_run.sh
 RUN chmod +x /docker_run.sh
+
+ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx/conf/nginx.conf \
+/usr/local/src/nginx_nginx.conf
+ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/php-fpm.conf \
+/usr/local/src/php_php-fpm.conf
+ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/www.conf \
+/usr/local/src/php_www.conf
+ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/php.ini \
+/usr/local/src/php_php.ini
+ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/redis/conf2/redis.conf \
+/usr/local/src/redis_redis.conf
 
 RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 
@@ -32,19 +43,6 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 && useradd -g appserver -M -d /usr/local/redis redis -s /sbin/nologin       \
 
 && cd /usr/local/src                                                        \
-
-&& wget -O nginx_nginx.conf                                                                     \
-https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx/conf/nginx.conf      \
-
-&& wget -O php_php-fpm.conf                                                                     \
-https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/php-fpm.conf     \
-&& wget -O php_www.conf                                                                         \
-https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/www.conf         \
-&& wget -O php_php.ini                                                                          \
-https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/php.ini          \
-
-&& wget -O redis_redis.conf                                                                     \
-https://raw.githubusercontent.com/qwerty199369/docker-library/master/redis/conf2/redis.conf     \
 
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz       \
 && wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/openssl/openssl-${OPENSSL_VERSION}.tar.gz  \
@@ -236,20 +234,7 @@ https://raw.githubusercontent.com/qwerty199369/docker-library/master/redis/conf2
 && chown -R mysql:appserver /usr/local/mysql                        \
 && chown -R mysql:appserver /etc/my.cnf                             \
 
-&& /usr/local/mysql/bin/mysqld --defaults-file=/etc/my.cnf          \
---initialize-insecure                                               \
---user=mysql                                                        \
---basedir=/usr/local/mysql                                          \
---datadir=/usr/local/mysql/datadir                                  \
-
 && rm -rf                       /usr/local/mysql/mysql-test         \
-
-&& chown -R mysql:appserver     /usr/local/mysql                    \
-&& /usr/local/mysql/support-files/mysql.server start                \
-&& chmod 777 /tmp/mysql.sock                                        \
-&& /usr/local/mysql/support-files/mysql.server stop                 \
-&& chown -R mysql:appserver    /usr/local/mysql                     \
-
 
 
 

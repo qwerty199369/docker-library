@@ -5,24 +5,25 @@ docker run \
  -v /appserver/mysql/datadir:/usr/local/mysql/datadir:rw \
  -p 80:80 \
  -p 443:443 \
- -d qwerty199369/nginx-php-mysql-redis:1.0.2
-
-docker run \
- -v /appserver/nginx:/appserver:rw \
- -p 80:80 \
- -d qwerty199369/fast-server-nginx:1.13.5.2 \
-&& docker run \
- -v /appserver/php:/appserver:rw \
- -p 9000:9000 \
- -d qwerty199369/fast-server-php:7.1.10.3 \
-&& docker run \
- -v /appserver/redis:/appserver:rw \
- -p 6379:6379 \
- -d qwerty199369/fast-server-redis:3.2.11.1
+ -d qwerty199369/nginx-php-mysql-redis:1.0.3
 ```
 
-### MYSQL PASSWORD
+### INIT MYSQL SERVER
 ```bash
+chown -R mysql:appserver     /usr/local/mysql
+
+# only for initializing data directory
+/usr/local/mysql/bin/mysqld --defaults-file=/etc/my.cnf             \
+--initialize-insecure                                               \
+--user=mysql                                                        \
+--basedir=/usr/local/mysql                                          \
+--datadir=/usr/local/mysql/datadir
+
+/usr/local/mysql/support-files/mysql.server start
+
+chmod 777 /tmp/mysql.sock
+
+# only for set new password of mysql
 /usr/local/mysql/bin/mysqladmin -uroot password
 ```
 
