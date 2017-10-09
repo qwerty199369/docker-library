@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM qwerty199369/image-base-ubuntu:16.04.0
 
 ENV NGINX_VERSION           1.13.5
 ENV OPENSSL_VERSION         1.0.2l
@@ -21,76 +21,7 @@ ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx-p
 
 RUN chmod +x /docker_run.sh
 
-RUN sed -r -i -e "s/archive.ubuntu.com/mirrors.163.com/g" /etc/apt/sources.list
-RUN sed -r -i -e "s/security.ubuntu.com/mirrors.163.com/g" /etc/apt/sources.list
-
-RUN apt-get -y update           \
-&& apt-get -y upgrade           \
-
-&& apt-get -y install wget      \
-gcc                             \
-g++                             \
-automake                        \
-autoconf                        \
-libtool                         \
-make                            \
-cmake                           \
-libedit-dev                     \
-libeditline-dev                 \
-libldb-dev                      \
-libldap2-dev                    \
-libsasl2-dev                    \
-zlib1g-dev                      \
-libpcre3-dev                    \
-libfreetype6-dev                \
-libpng12-dev                    \
-libevent-dev                    \
-libmcrypt-dev                   \
-libjpeg-dev                     \
-libjemalloc-dev                 \
-libxml2-dev                     \
-libbz2-dev                      \
-libcurl3-dev                    \
-libc6-dev                       \
-libc-client2007e-dev            \
-libglib2.0-dev                  \
-openssl                         \
-libssl-dev                      \
-libbison-dev                    \
-libncurses5-dev                 \
-libgd-dev                       \
-libfl-dev                       \
-libwebp-dev                     \
-libasprintf-dev                 \
-libgmp-dev                      \
-libaio-dev                      \
-libreadline-dev                 \
-librecode-dev                   \
-libxslt1-dev                    \
-libicu-dev                      \
-zip                             \
-libzip-dev                      \
-libgeoip-dev                    \
-libatomic-ops-dev               \
-libacl1-dev                     \
-libenchant-dev                  \
-libkrad-dev                     \
-libkrb5-dev                     \
-libldap2-dev                    \
-libaspell-dev                   \
-libpspell-dev                   \
-libtidy-dev                     \
-libpq-dev                       \
-p7zip                           \
-liblz4-dev                      \
-
-&& apt-get clean
-
 RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
-
-&& ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h             \
-&& ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so           \
-&& ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so           \
 
 && groupadd appserver                                                       \
 && useradd -g appserver -M -d /usr/local/nginx nginx -s /sbin/nologin       \
@@ -100,25 +31,25 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 
 && cd /usr/local/src                                                        \
 
-&& wget https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz            \
-&& wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz    \
-&& wget https://ftp.pcre.org/pub/pcre/pcre-${PCRE_VERSION}.tar.gz           \
-&& wget http://zlib.net/zlib-${ZLIB_VERSION}.tar.gz                         \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz \
+&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/openssl/openssl-${OPENSSL_VERSION}.tar.gz    \
+&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz \
+&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz \
 && tar -zxvf nginx-${NGINX_VERSION}.tar.gz                                  \
 && tar -zxvf openssl-${OPENSSL_VERSION}.tar.gz                              \
 && tar -zxvf pcre-${PCRE_VERSION}.tar.gz                                    \
 && tar -zxvf zlib-${ZLIB_VERSION}.tar.gz                                    \
 
-&& wget http://cn2.php.net/distributions/php-${PHP_VERSION}.tar.gz          \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/php/php-${PHP_VERSION}.tar.gz  \
 && tar -zxvf php-${PHP_VERSION}.tar.gz                                      \
 
-&& wget http://ideas-cdn-src.oss-cn-beijing.aliyuncs.com/assets/softs/percona-server-${PERCONA_VERSION}.tar.gz \
-&& wget http://ideas-cdn-src.oss-cn-beijing.aliyuncs.com/assets/softs/boost_${BOOST_VERSION}.tar.gz \
-&& tar -zxvf percona-server-${PERCONA_VERSION}.tar.gz                       \
-&& tar -zxvf boost_${BOOST_VERSION}.tar.gz                                  \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/percona/percona-server-${PERCONA_VERSION}.tar.gz \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/boost/boost_${BOOST_VERSION}.tar.gz        \
+&& tar -zxvf percona-server-${PERCONA_VERSION}.tar.gz                                   \
+&& tar -zxvf boost_${BOOST_VERSION}.tar.gz                                              \
 
-&& wget http://download.redis.io/releases/redis-${REDIS_VERSION}.tar.gz     \
-&& tar -zxvf redis-${REDIS_VERSION}.tar.gz                                  \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz        \
+&& tar -zxvf redis-${REDIS_VERSION}.tar.gz                                              \
 
 && cd /usr/local/src/nginx-${NGINX_VERSION}                         \
 && ./configure --prefix=/usr/local/nginx                            \
