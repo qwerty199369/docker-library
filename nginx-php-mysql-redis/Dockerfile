@@ -17,21 +17,21 @@ ENV BOOST_NORMAL_VERSION    1.59.0
 ENV REDIS_VERSION           3.2.11
 
 
-ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/mysql/conf/generated.my.cnf \
+ADD https://gitlab.com/qwerty199369/docker-library/raw/master/mysql/conf/generated.my.cnf \
 /etc/my.cnf
-ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx-php-mysql-redis/docker_run.sh \
+ADD https://gitlab.com/qwerty199369/docker-library/raw/master/nginx-php-mysql-redis/docker_run.sh \
 /docker_run.sh
 RUN chmod +x /docker_run.sh
 
-ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx/conf/nginx.conf \
+ADD https://gitlab.com/qwerty199369/docker-library/raw/master/nginx/conf/nginx.conf \
 /usr/local/src/nginx_nginx.conf
-ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/php-fpm.conf \
+ADD https://gitlab.com/qwerty199369/docker-library/raw/master/php/conf2/php-fpm.conf \
 /usr/local/src/php_php-fpm.conf
-ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/www.conf \
+ADD https://gitlab.com/qwerty199369/docker-library/raw/master/php/conf2/www.conf \
 /usr/local/src/php_www.conf
-ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/php.ini \
+ADD https://gitlab.com/qwerty199369/docker-library/raw/master/php/conf2/php.ini \
 /usr/local/src/php_php.ini
-ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/redis/conf2/redis.conf \
+ADD https://gitlab.com/qwerty199369/docker-library/raw/master/redis/conf2/redis.conf \
 /usr/local/src/redis_redis.conf
 
 RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
