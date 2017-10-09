@@ -77,6 +77,7 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 
 && chown -R redis:appserver             /usr/local/redis                    \
 && /usr/local/redis/bin/redis-server    /usr/local/redis/conf_file.conf     \
+&& sleep  3s                                                                \
 && /usr/local/redis/bin/redis-cli       shutdown                            \
 
 
@@ -133,6 +134,7 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 && chown -R nginx:appserver        /usr/local/nginx                 \
 && /usr/local/nginx/sbin/nginx -t                                   \
 && /usr/local/nginx/sbin/nginx                                      \
+&& sleep  3s                                                        \
 && /usr/local/nginx/sbin/nginx -s stop                              \
 
 
@@ -208,6 +210,7 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 
 && chown -R php:appserver        /usr/local/php                     \
 && /usr/local/php/sbin/php-fpm                                      \
+&& sleep  3s                                                        \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid`               \
 
 
