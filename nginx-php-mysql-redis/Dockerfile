@@ -31,24 +31,37 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 
 && cd /usr/local/src                                                        \
 
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz \
-&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/openssl/openssl-${OPENSSL_VERSION}.tar.gz    \
-&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz \
-&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz \
+&& wget -O nginx_nginx.conf                                                                     \
+https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx/conf/nginx.conf      \
+
+&& wget -O php_php-fpm.conf                                                                     \
+https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/php-fpm.conf     \
+&& wget -O php_www.conf                                                                         \
+https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/www.conf         \
+&& wget -O php_php.ini                                                                          \
+https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/php.ini          \
+
+&& wget -O redis_redis.conf                                                                     \
+https://raw.githubusercontent.com/qwerty199369/docker-library/master/redis/conf2/redis.conf     \
+
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz       \
+&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/openssl/openssl-${OPENSSL_VERSION}.tar.gz  \
+&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz           \
+&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz           \
 && tar -zxvf nginx-${NGINX_VERSION}.tar.gz                                  \
 && tar -zxvf openssl-${OPENSSL_VERSION}.tar.gz                              \
 && tar -zxvf pcre-${PCRE_VERSION}.tar.gz                                    \
 && tar -zxvf zlib-${ZLIB_VERSION}.tar.gz                                    \
 
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/php/php-${PHP_VERSION}.tar.gz  \
-&& tar -zxvf php-${PHP_VERSION}.tar.gz                                      \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/php/php-${PHP_VERSION}.tar.gz    \
+&& tar -zxvf php-${PHP_VERSION}.tar.gz                                                          \
 
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/percona/percona-server-${PERCONA_VERSION}.tar.gz \
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/boost/boost_${BOOST_VERSION}.tar.gz        \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/boost/boost_${BOOST_VERSION}.tar.gz \
 && tar -zxvf percona-server-${PERCONA_VERSION}.tar.gz                                   \
 && tar -zxvf boost_${BOOST_VERSION}.tar.gz                                              \
 
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz        \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz \
 && tar -zxvf redis-${REDIS_VERSION}.tar.gz                                              \
 
 && cd /usr/local/src/nginx-${NGINX_VERSION}                         \
@@ -97,9 +110,7 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 && mkdir /usr/local/nginx/vhosts_dir                                \
 
 && cd /usr/local/src                                                \
-&& wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx/conf/nginx.conf \
-&& yes | cp ./nginx.conf  /usr/local/nginx/conf/nginx.conf          \
-&& rm -rf ./nginx.conf                                              \
+&& yes | cp ./nginx_nginx.conf  /usr/local/nginx/conf/nginx.conf    \
 
 && chown -R nginx:appserver        /usr/local/nginx                 \
 && /usr/local/nginx/sbin/nginx -t                                   \
@@ -173,17 +184,9 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 && make -j${CPU_NUM} && make install                                \
 
 && cd /usr/local/src                                                \
-&& wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/php-fpm.conf \
-&& yes | cp ./php-fpm.conf      /usr/local/php/etc/                 \
-&& rm -rf ./php-fpm.conf                                            \
-
-&& wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/www.conf \
-&& yes | cp ./www.conf          /usr/local/php/etc/php-fpm.d/       \
-&& rm -rf ./www.conf                                                \
-
-&& wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/php/conf2/php.ini \
-&& yes | cp ./php.ini           /usr/local/php/lib/                 \
-&& rm -rf ./php.ini                                                 \
+&& yes | cp ./php_php-fpm.conf /usr/local/php/etc/php-fpm.conf      \
+&& yes | cp ./php_www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
+&& yes | cp ./php_php.ini      /usr/local/php/lib/php.ini           \
 
 && chown -R php:appserver        /usr/local/php                     \
 && /usr/local/php/sbin/php-fpm                                      \
@@ -256,9 +259,7 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 && mkdir /usr/local/redis/working_dir                                       \
 
 && cd /usr/local/src                                                        \
-&& wget https://raw.githubusercontent.com/qwerty199369/docker-library/master/redis/conf2/redis.conf \
-&& yes | cp ./redis.conf                /usr/local/redis/conf_file.conf     \
-&& rm -rf   ./redis.conf                                                    \
+&& yes | cp ./redis_redis.conf          /usr/local/redis/conf_file.conf     \
 
 && chown -R redis:appserver             /usr/local/redis                    \
 && /usr/local/redis/bin/redis-server    /usr/local/redis/conf_file.conf     \

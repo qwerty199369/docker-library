@@ -1,7 +1,7 @@
 #!/bin/bash
 
 chown -R nginx:appserver /usr/local/nginx
-chown -R php:appserver /usr/local/php
+chown -R php:appserver   /usr/local/php
 chown -R mysql:appserver /usr/local/mysql
 chown -R redis:appserver /usr/local/redis
 
