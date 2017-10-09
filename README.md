@@ -1,10 +1,11 @@
 ### NGINX + PHP + MYSQL + REDIS
 ```bash
 docker run \
- -v /appserver/nginx:/appserver:rw \
+ -v /appserver/nginx/vhosts_dir:/usr/local/nginx/vhosts_dir:rw \
+ -v /appserver/mysql/datadir:/usr/local/mysql/datadir:rw \
  -p 80:80 \
  -p 443:443 \
- -d qwerty199369/nginx-php-mysql-redis:1.0.0
+ -d qwerty199369/nginx-php-mysql-redis:1.0.2
 
 docker run \
  -v /appserver/nginx:/appserver:rw \
