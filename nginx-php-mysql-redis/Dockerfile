@@ -64,6 +64,24 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 && wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/redis/redis-${REDIS_VERSION}.tar.gz \
 && tar -zxvf redis-${REDIS_VERSION}.tar.gz                                              \
 
+
+
+
+&& cd /usr/local/src/redis-${REDIS_VERSION}                                 \
+&& make -j${CPU_NUM} && make PREFIX=/usr/local/redis install                \
+
+&& mkdir /usr/local/redis/working_dir                                       \
+
+&& cd /usr/local/src                                                        \
+&& yes | cp ./redis_redis.conf          /usr/local/redis/conf_file.conf     \
+
+&& chown -R redis:appserver             /usr/local/redis                    \
+&& /usr/local/redis/bin/redis-server    /usr/local/redis/conf_file.conf     \
+&& /usr/local/redis/bin/redis-cli       shutdown                            \
+
+
+
+
 && cd /usr/local/src/nginx-${NGINX_VERSION}                         \
 && ./configure --prefix=/usr/local/nginx                            \
 --user=nginx                                                        \
@@ -235,22 +253,6 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 && chown -R mysql:appserver /etc/my.cnf                             \
 
 && rm -rf                       /usr/local/mysql/mysql-test         \
-
-
-
-
-
-&& cd /usr/local/src/redis-${REDIS_VERSION}                                 \
-&& make -j${CPU_NUM} && make PREFIX=/usr/local/redis install                \
-
-&& mkdir /usr/local/redis/working_dir                                       \
-
-&& cd /usr/local/src                                                        \
-&& yes | cp ./redis_redis.conf          /usr/local/redis/conf_file.conf     \
-
-&& chown -R redis:appserver             /usr/local/redis                    \
-&& /usr/local/redis/bin/redis-server    /usr/local/redis/conf_file.conf     \
-&& /usr/local/redis/bin/redis-cli       shutdown                            \
 
 
 && rm -rf /usr/local/src/*
