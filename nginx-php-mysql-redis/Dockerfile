@@ -21,11 +21,10 @@ ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx-p
 
 RUN chmod +x /docker_run.sh
 
-RUN sed -r -i -e "s/archive.ubuntu.com/mirrors.sohu.com/g" /etc/apt/sources.list
+RUN sed -r -i -e "s/archive.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list
+RUN sed -r -i -e "s/security.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list
 
-RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l` \
-
-&& apt-get -y update            \
+RUN apt-get -y update           \
 && apt-get -y upgrade           \
 
 && apt-get -y install wget      \
@@ -85,7 +84,9 @@ libpq-dev                       \
 p7zip                           \
 liblz4-dev                      \
 
-&& apt-get clean                \
+&& apt-get clean
+
+RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 
 && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h             \
 && ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so           \
