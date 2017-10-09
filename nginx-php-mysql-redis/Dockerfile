@@ -21,8 +21,8 @@ ADD https://raw.githubusercontent.com/qwerty199369/docker-library/master/nginx-p
 
 RUN chmod +x /docker_run.sh
 
-RUN sed -r -i -e "s/archive.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list
-RUN sed -r -i -e "s/security.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list
+RUN sed -r -i -e "s/archive.ubuntu.com/mirrors.163.com/g" /etc/apt/sources.list
+RUN sed -r -i -e "s/security.ubuntu.com/mirrors.163.com/g" /etc/apt/sources.list
 
 RUN apt-get -y update           \
 && apt-get -y upgrade           \
