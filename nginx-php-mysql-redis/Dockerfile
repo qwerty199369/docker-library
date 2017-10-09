@@ -80,7 +80,6 @@ libkrb5-dev                     \
 libldap2-dev                    \
 libaspell-dev                   \
 libpspell-dev                   \
-libsnmp-dev                     \
 libtidy-dev                     \
 libpq-dev                       \
 p7zip                           \
@@ -227,7 +226,6 @@ liblz4-dev                      \
 --with-iconv-dir                                                    \
 --with-libzip                                                       \
 --with-pspell                                                       \
---with-snmp                                                         \
 --with-tidy                                                         \
 --with-libxml-dir                                                   \
 --with-xmlrpc                                                       \
