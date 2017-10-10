@@ -257,7 +257,7 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 
 && rm -rf                       /usr/local/mysql/mysql-test         \
 
-
+&& rm -rf /var/lib/apt/lists/*                                      \
 && rm -rf /usr/local/src/*
 
 EXPOSE 80 443

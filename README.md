@@ -5,7 +5,7 @@ docker run \
  -v /appserver/mysql/datadir:/usr/local/mysql/datadir:rw \
  -p 80:80 \
  -p 443:443 \
- -d qwerty199369/nginx-php-mysql-redis:1.0.3
+ -d qwerty199369/nginx-php-mysql-redis:1.1.2
 ```
 
 ### INIT MYSQL SERVER
