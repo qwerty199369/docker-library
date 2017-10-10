@@ -2,8 +2,8 @@ FROM phusion/baseimage:0.9.22
 
 MAINTAINER qwerty199369 <qwerty199369@outlook.com>
 
-RUN sed -r -i -e "s/archive.ubuntu.com/mirrors.163.com/g" /etc/apt/sources.list \
-&& sed -r -i -e "s/security.ubuntu.com/mirrors.163.com/g" /etc/apt/sources.list \
+RUN sed -r -i -e "s/archive.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list \
+&& sed -r -i -e "s/security.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list \
 && apt-get -y update            \
 && apt-get -y upgrade           \
 && apt-get -y install wget      \
