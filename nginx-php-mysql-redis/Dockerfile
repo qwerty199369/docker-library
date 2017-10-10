@@ -1,4 +1,4 @@
-FROM qwerty199369/image-base-ubuntu:16.04.0
+FROM qwerty199369/image-base-ubuntu:16.04.1
 
 MAINTAINER qwerty199369 <qwerty199369@outlook.com>
 
