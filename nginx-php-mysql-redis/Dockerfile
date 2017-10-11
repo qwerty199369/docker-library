@@ -2,7 +2,7 @@ FROM qwerty199369/image-base-ubuntu:16.04.1
 
 MAINTAINER qwerty199369 <qwerty199369@outlook.com>
 
-ENV NGINX_VERSION           1.13.5
+ENV NGINX_VERSION           1.13.6
 ENV OPENSSL_VERSION         1.0.2l
 ENV PCRE_VERSION            8.41
 ENV ZLIB_VERSION            1.2.11

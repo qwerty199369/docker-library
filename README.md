@@ -8,6 +8,16 @@ docker run \
  -d qwerty199369/nginx-php-mysql-redis:1.1.2
 ```
 
+### RELOAD NGINX
+```bash
+docker exec -d CONTAINER /usr/local/nginx/sbin/nginx -s reload
+```
+
+### COMPOSER
+```bash
+/usr/local/php/bin/php composer.phar update --prefer-dist --no-dev --optimize-autoloader -vvv
+```
+
 ### INIT MYSQL SERVER
 ```bash
 chown -R mysql:appserver     /usr/local/mysql
