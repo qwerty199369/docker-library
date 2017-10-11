@@ -260,6 +260,6 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 && rm -rf /var/lib/apt/lists/*                                      \
 && rm -rf /usr/local/src/*
 
-EXPOSE 80 443
+EXPOSE 80 443 3306 9000 6379
 
 CMD ["/docker_run.sh"]
