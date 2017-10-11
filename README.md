@@ -24,6 +24,13 @@ update `user` set `Host` = '%' where `User` = 'root' and `Host` = 'localhost';
 flush privileges;
 ```
 
+### ENABLE PUBLIC ACCESS OF REDIS
+```bash
+sed -r -i -e "s/127.0.0.1/0.0.0.0/g" /usr/local/redis/conf_file.conf
+/usr/local/redis/bin/redis-cli shutdown
+/usr/local/redis/bin/redis-server /usr/local/redis/conf_file.conf
+```
+
 ### COMPOSER
 ```bash
 /usr/local/php/bin/php composer.phar update --prefer-dist --no-dev --optimize-autoloader -vvv
