@@ -5,7 +5,7 @@ docker run \
  -v /appserver/mysql/datadir:/usr/local/mysql/datadir:rw \
  -p 80:80 \
  -p 443:443 \
- -d qwerty199369/nginx-php-mysql-redis:1.1.2
+ -d qwerty199369/nginx-php-mysql-redis:1.1.3
 ```
 
 ### RELOAD NGINX
@@ -13,9 +13,11 @@ docker run \
 docker exec -d CONTAINER /usr/local/nginx/sbin/nginx -s reload
 ```
 
-### START MYSQL
+### ENABLE PUBLIC ACCESS OF MYSQL
 ```bash
-docker exec -d CONTAINER /usr/local/mysql/support-files/mysql.server start
+sed -r -i -e "s/127.0.0.1/0.0.0.0/g" /etc/my.cnf
+update `user` set `Host` = '%' where `User` = 'root' and `Host` = 'localhost';
+flush privileges;
 ```
 
 ### COMPOSER
