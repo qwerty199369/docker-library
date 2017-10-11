@@ -16,6 +16,10 @@ docker exec -d CONTAINER /usr/local/nginx/sbin/nginx -s reload
 ### ENABLE PUBLIC ACCESS OF MYSQL
 ```bash
 sed -r -i -e "s/127.0.0.1/0.0.0.0/g" /etc/my.cnf
+/usr/local/mysql/support-files/mysql.server restart
+
+/usr/local/mysql/bin/mysql -uroot -p
+use mysql;
 update `user` set `Host` = '%' where `User` = 'root' and `Host` = 'localhost';
 flush privileges;
 ```
