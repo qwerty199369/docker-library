@@ -13,6 +13,11 @@ docker run \
 docker exec -d CONTAINER /usr/local/nginx/sbin/nginx -s reload
 ```
 
+### START MYSQL
+```bash
+docker exec -d CONTAINER /usr/local/mysql/support-files/mysql.server start
+```
+
 ### COMPOSER
 ```bash
 /usr/local/php/bin/php composer.phar update --prefer-dist --no-dev --optimize-autoloader -vvv
