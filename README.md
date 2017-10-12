@@ -13,6 +13,11 @@ docker run \
 docker exec -d CONTAINER /usr/local/nginx/sbin/nginx -s reload
 ```
 
+### CERTBOT
+```bash
+./certbot-auto -n --config /usr/local/nginx/vhosts_dir/certbot/xxx.conf certonly
+```
+
 ### ENABLE PUBLIC ACCESS OF MYSQL
 ```bash
 sed -r -i -e "s/127.0.0.1/0.0.0.0/g" /etc/my.cnf
