@@ -60,5 +60,12 @@ chmod 777 /tmp/mysql.sock
 /usr/local/mysql/bin/mysqladmin -uroot password
 ```
 
+### ENABLE MYSQL QUERY LOG
+```bash
+SET global log_output = 'file';
+SET global general_log = 1;
+SET global general_log_file = '/usr/local/nginx/vhosts_dir/PATH/query.log';
+```
+
 ### REFERENCE
 - [Initializing the Data Directory Manually Using mysqld](https://dev.mysql.com/doc/refman/5.7/en/data-directory-initialization-mysqld.html)
