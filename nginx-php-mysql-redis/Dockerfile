@@ -44,10 +44,10 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 
 && cd /usr/local/src                                                        \
 
-&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz       \
-&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/openssl/openssl-${OPENSSL_VERSION}.tar.gz  \
-&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz           \
-&& wget http://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz           \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/nginx/nginx-${NGINX_VERSION}.tar.gz        \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/openssl/openssl-${OPENSSL_VERSION}.tar.gz  \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/pcre/pcre-${PCRE_VERSION}.tar.gz           \
+&& wget https://docker-assets.oss-cn-shanghai.aliyuncs.com/src/zlib/zlib-${ZLIB_VERSION}.tar.gz           \
 && tar -zxvf nginx-${NGINX_VERSION}.tar.gz                                  \
 && tar -zxvf openssl-${OPENSSL_VERSION}.tar.gz                              \
 && tar -zxvf pcre-${PCRE_VERSION}.tar.gz                                    \
@@ -203,10 +203,10 @@ RUN CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`                    \
 
 && make -j${CPU_NUM} && make install                                \
 
-&& cd /usr/local/src                                                \
-&& yes | cp ./php_php-fpm.conf /usr/local/php/etc/php-fpm.conf      \
-&& yes | cp ./php_www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
-&& yes | cp ./php_php.ini      /usr/local/php/lib/php.ini           \
+&& cd /usr/local/src                                                    \
+&& yes | cp ./php_php-fpm.conf /usr/local/php/etc/php-fpm.conf          \
+&& yes | cp ./php_www.conf     /usr/local/php/etc/php-fpm.d/www.conf    \
+&& yes | cp ./php_php.ini      /usr/local/php/lib/php.ini               \
 
 && chown -R php:appserver        /usr/local/php                     \
 && /usr/local/php/sbin/php-fpm                                      \
