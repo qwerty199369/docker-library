@@ -29,6 +29,15 @@ update `user` set `Host` = '%' where `User` = 'root' and `Host` = 'localhost';
 flush privileges;
 ```
 
+### UPGRADE MYSQL
+```bash
+touch /usr/local/mysql/log_error_file.log
+chown -R mysql:appserver /usr/local/mysql
+/usr/local/mysql/support-files/mysql.server start
+
+# or you can do it via `docker_run.sh`
+```
+
 ### ENABLE PUBLIC ACCESS OF REDIS
 ```bash
 sed -r -i -e "s/127.0.0.1/0.0.0.0/g" /usr/local/redis/conf_file.conf
